@@ -1,0 +1,22 @@
+  tasks:
+    - name: "creating the database"
+      mysql_db:
+        name: ecomdb
+        state: present
+    - name: "creating user for the db"
+      mysql_user:
+        name: ecomuser
+        password: ecompassword
+        priv: '*.*:ALL'
+        state: present
+    - name: Copy file with owner and permissions
+      copy:
+        src:  /home/osboxes/ecommerce/plays/db-load-script.sql  
+        dest: /home/osboxes/db-load-script.sql
+        owner: osboxes
+        group: osboxes
+        mode: '0644'     
+    #- name: "Working on the DB"dd
+    #  command: mysql -u ecomuser -p ecompassword ecomdb --skip-column-names --execute "" 
+    - name: "restoring the DB"
+      shell: mysql < /home/osboxes/db-load-script.sql

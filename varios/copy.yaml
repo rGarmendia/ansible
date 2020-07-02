@@ -1,0 +1,7 @@
+- name: Copy files from a server to another
+  hosts: all
+  tasks:
+  - name:
+    copy:
+      src:  /tmp/test-file.txt
+      dest:  /tmp/test-file.txt

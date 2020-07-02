@@ -1,0 +1,4 @@
+    services:
+      - firewalld
+      - mariadb
+      - httpd

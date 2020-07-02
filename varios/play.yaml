@@ -1,0 +1,19 @@
+me: "Providing dependencies"
+  hosts: ecommerce_vm
+  become: yes
+  remote_user: osboxes
+  tasks:
+    - name: "installs the packages"
+      yum:
+        name: '{{ item }}'
+        state: 'present'
+      with_items: '{{ packages }}'
+      vars:
+        packages:
+          - firewalld
+          - mariadb-server
+          - httpd
+          - php
+          - php-mysql
+          - git
+

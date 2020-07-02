@@ -1,0 +1,11 @@
+- name: Include a play after another play
+    include: play-packages.yaml
+- name: Include a play after another play
+    include: play-services.yaml
+- name: Include a play after another play
+    include: play-fw.yaml.yaml
+- name: Include a play after another play
+    include: play-configure-database.yaml
+- name: Include a play after another play
+    include: play-web-server.yaml 
+    

@@ -1,0 +1,30 @@
+- name: "Providing dependencies"
+  hosts: ecommerce_vm
+  vars:
+    packages:
+      - firewalld
+      - mariadb-server
+      - httpd
+      - php
+      - php-mysql
+      - git
+      - python
+      - epel-release
+  become: yes
+  remote_user: osboxes
+  tasks:
+    - name: "installs the packages"
+      yum:
+        name: '{{ item }}'
+        state: 'present'
+      with_items: '{{ packages }}'
+      #register: command_output
+    - name: "installs the pip package"
+      yum:
+        name: python-pip
+        state: 'present'
+     # when: 'command_output.stdout.find("epel-release") == -1'
+    - name: "install dependencies"
+      pip:
+        name: pymysql
+        state: present

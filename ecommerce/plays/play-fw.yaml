@@ -1,0 +1,11 @@
+- name: "Configuring the FW"
+  hosts: ecommerce_vm
+  become: yes
+  remote_user: osboxes
+  tasks:
+    - name: "creating the rules for DB"
+      command: "firewall-cmd --permanent --zone=public --add-port=3306/tcp"
+    - name: "creating the rules for Web"
+      command: "firewall-cmd --permanent --zone=public --add-port=80/tcp"
+    - name: "Reloading the fw"
+      command: "systemctl restart firewalld"

@@ -1,0 +1,8 @@
+tasks:
+    - name: "creating the rules"
+      command: "firewall-cmd --permanent --zone=public --add-port='{{ item }}'/tcp"
+      with_items: '{{ ports }}'
+    - name: "Reloading the fw"
+      shell: sudo firewall-cmd --reload
+    - name: "Reloading the fw service"
+      command: "systemctl restart firewalld"

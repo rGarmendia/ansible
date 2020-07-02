@@ -1,0 +1,27 @@
+  tasks:
+    - name: "Replace index.html"
+      lineinfile:
+        path: /etc/httpd/conf/httpd.conf
+        regexp: '^DirectoryIndex index.html'
+        line: "Replace index.php"
+    - name: "Replace module"
+      lineinfile:
+        path: /etc/httpd/conf/httpd.conf
+        regexp: '^    DirectoryIndex index.html'
+        line: '    DirectoryIndex index.php'
+    - name: "cloning repo"
+      git:
+        repo: https://github.com/kodekloudhub/learning-app-ecommerce.git
+        dest: /tmp/repo
+        update: no
+    - name: Check that repository exists
+      stat:
+        path: /tmp/repo
+      register: repo_result
+    - name: "Moving the repo"
+      shell: mv /tmp/repo/* /var/www/html
+      when: not repo_result.stat.exists
+    - name: "Updating index"
+      shell: "sed 's/172.20.1.101/localhost/g' /var/www/html/index.php  > /var/www/html/index.php.new"
+    - name: "Renaming index file"
+      shell: mv /var/www/html/index.php.new /var/www/html/index.php 

@@ -1,0 +1,22 @@
+- name: "Enabling the Services"
+  hosts: ecommerce_vm
+#  become: yes
+#  remote_user: osboxes
+  vars:
+    services:
+      - firewalld
+      - mariadb
+      - httpd
+  tasks:
+    - name: "starting the service"
+      service:
+        name: '{{ item }}'
+        state: started
+      with_items: '{{ services }}'
+    - name: "Enables the service"
+      service:
+        name: '{{ item }}'
+        enabled: yes
+      with_items: '{{ services }}'      
+
+    

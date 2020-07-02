@@ -1,0 +1,9 @@
+    packages:
+      - firewalld
+      - mariadb-server
+      - httpd
+      - php
+      - php-mysql
+      - git
+      - python
+      - epel-release
